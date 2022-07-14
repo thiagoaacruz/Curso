@@ -132,23 +132,28 @@ public class CursoController {
 
 //_______________________________________________________________________________________________________________________________		
 
+
+	
 	@ApiOperation("Serviço para deletar Curso")
 
 	@RequestMapping(value = ENDPOINT + "/{idcurso}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> delete(@PathVariable("idcurso") Integer idcurso) {
 		try {
 			Optional<Curso> item = repository.findById(idcurso);
+			Curso curso = item.get();
 
-			if (item.isEmpty()) {
+			if (LocalDate.now().isBefore(curso.getDataTermino())) {
 
-				LOGGER.info("Serviço para deletar não efetuado!");
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Aluno não encontrado");
+				LOGGER.info("Serviço para deletar efetuado!");
+				repository.delete(curso);
+				return ResponseEntity.status(HttpStatus.OK).body("Curso excluído");
 
 			} else {
-				Curso curso = item.get();
-				repository.delete(curso);
-				LOGGER.info("Serviço para deletar efetuado!");
-				return ResponseEntity.status(HttpStatus.OK).body("Curso excluido");
+				//Curso curso = item.get();
+				//repository.delete(curso);
+				LOGGER.info("Serviço para deletar não efetuado!");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Curso finalizado");
+				
 			}
 		} catch (Exception e) {
 			LOGGER.error("Erro ao deletar.");
@@ -156,7 +161,10 @@ public class CursoController {
 		}
 
 	}
-
+	
+	
+	
+	
 //_______________________________________________________________________________________________________________________________			
 
 	@ApiOperation("Serviço para consultar (descrição - data Inicio - data termino)")
@@ -226,13 +234,13 @@ public class CursoController {
 	}
 
 //_______________________________________________________________________________________________________________________________					
-
+/*
 	@ApiOperation("Serviço para deletar Curso específico")
 
 	@DeleteMapping("/{idcurso}")
-	public ResponseEntity<String> apagar(@PathVariable("idcurso") Integer idcurso) {
+	public ResponseEntity<String> apagar(@PathVariable("idCurso") Integer idCurso) {
 		try {
-			Optional<Curso> lista = repository.findById(idcurso);
+			Optional<Curso> lista = repository.findById(idCurso);
 
 			if (lista.isEmpty()) {
 
@@ -263,5 +271,5 @@ public class CursoController {
 		}
 
 	}
-						
+	*/					
 }

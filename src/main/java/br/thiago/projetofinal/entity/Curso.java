@@ -1,5 +1,6 @@
 package br.thiago.projetofinal.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -11,14 +12,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Audited
+
 @Entity
 @Table(name = "Curso")
-public class Curso {
+public class Curso extends AbstractAuditingEntity  implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
