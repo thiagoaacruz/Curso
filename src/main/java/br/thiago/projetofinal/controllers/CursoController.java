@@ -46,37 +46,11 @@ public class CursoController {
 
 	private static final String ENDPOINT = "api/curso";
 
-//_______________________________________________________________________________________________________________________________	
-
-	/*
-	 * @ApiOperation("Serviço para cadastro de Curso")
-	 * 
-	 * @RequestMapping(value = ENDPOINT, method = RequestMethod.POST) public
-	 * ResponseEntity<String> post(@RequestBody CursoPostRequest request) { try {
-	 * Curso curso = new Curso();
-	 * 
-	 * curso.setDescricaoAssunto(request.getDescricaoAssunto());
-	 * curso.setDataInicio(request.getDataInicio());
-	 * curso.setDataTermino(request.getDataTermino());
-	 * curso.setQuantidadeAluno(request.getQuantidadeAluno());
-	 * curso.setCategoria(request.getCategoria());
-	 * 
-	 * repository.save(curso);
-	 * 
-	 * return ResponseEntity.status(HttpStatus.OK).body("Curso cadastrado");
-	 * 
-	 * } catch (Exception e) { return
-	 * ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro" +
-	 * e.getMessage()); }
-	 * 
-	 * }
-	 */
 
 //_______________________________________________________________________________________________________________________________	
 
-	// Não será permitida a inclusão de cursos com a data de início menor que a data
-	// atual.
-
+	// Não será permitida a inclusão de cursos com a data de início menor que a data atual.
+	
 	@ApiOperation("Serviço para cadastro")
 
 	@RequestMapping(value = ENDPOINT, method = RequestMethod.POST)
@@ -110,7 +84,7 @@ public class CursoController {
 
 //_______________________________________________________________________________________________________________________________		
 
-	// Método de validação de periodo por data
+	// Método de validação de periodo por data.
 
 	private void validaData(Curso curso) {
 		if (curso.getDataInicio().isAfter(curso.getDataTermino())) {
@@ -218,7 +192,6 @@ public class CursoController {
 		}
 		
 		
-
 		Predicate[] predicateArray = new Predicate[predicates.size()];
 		predicates.toArray(predicateArray);
 		cq.where(predicateArray);
@@ -290,12 +263,5 @@ public class CursoController {
 		}
 
 	}
-	
-//_______________________________________________________________________________________________________________________________	
-	
-	
-	
-	
-	
-
+						
 }

@@ -35,7 +35,8 @@ public interface ICurso extends JpaRepository<Curso, Integer>, RevisionRepositor
 	@Query(value = "select count(c.idCurso) from Curso c where (c.dataInicio between :dataInicio and :dataTermino "
             + "or (c.dataTermino between :dataInicio and :dataTermino)" + "or (c.dataInicio <= :dataInicio and c.dataTermino >= :dataTermino)"
             + "or (c.dataInicio >= :dataInicio and c.dataTermino <= :dataTermino))" + "and (c.idCurso != :idCurso)")
-    public Integer consultaGeralDatas(@Param("dataInicio") LocalDate dataIni, @Param("dataTermino") LocalDate dataTer,
+    
+	public Integer consultaGeralDatas(@Param("dataInicio") LocalDate dataInicio, @Param("dataTermino") LocalDate dataTermino,
             @Param("idCurso") Integer idCurso);
 	
 	
